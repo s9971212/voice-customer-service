@@ -54,6 +54,28 @@ class Settings(BaseSettings):
     db_password: str = ""
 
     # =========================
+    # Whisper ASR
+    # =========================
+
+    model_size_or_path: str = "large-v3"
+
+    device: str = "cuda"
+
+    compute_type: str = "float16"
+
+    language: str = "zh"
+
+    beam_size: int = 5
+
+    vad_filter: bool = False
+
+    target_peak: float = 0.9
+
+    max_gain: float = 10.0
+
+    target_sr: int = 16000
+
+    # =========================
     # ChatGPT
     # =========================
 
@@ -62,10 +84,22 @@ class Settings(BaseSettings):
     max_messages: int = 30
 
     # =========================
+    # Edge TTS
+    # =========================
+
+    voice: str = "zh-TW-HsiaoChenNeural"
+
+    # =========================
     # Api
     # =========================
 
     api_v1_str: str = "/api"
+
+    # =========================
+    # Model
+    # =========================
+
+    model_dir: Path = BASE_DIR / "models"
 
     # =========================
     # Log
