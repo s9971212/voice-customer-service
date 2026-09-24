@@ -114,4 +114,4 @@ Copy-Item .env.example .env
 uvicorn app.main:app --reload
 ```
 
-開啟 http://127.0.0.1:8000/docs，確認所有 API 是否都有在 Swagger 中顯示。如果都有，表示您的環境應該已經設定正確。
+開啟 http://127.0.0.1:8000/docs ，確認所有 API 是否都有在 Swagger 中顯示。如果都有，表示您的環境應該已經設定正確。
