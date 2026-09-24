@@ -33,7 +33,7 @@ app = FastAPI(
     version=settings.version,
     lifespan=lifespan,
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
 )
 
 # =========================
@@ -69,5 +69,5 @@ def root():
     return {
         "status": "healthy",
         "project_name": settings.project_name,
-        "version": settings.version
+        "version": settings.version,
     }

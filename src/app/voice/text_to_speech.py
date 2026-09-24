@@ -13,7 +13,7 @@ class TextToSpeech:
 
         communicate = edge_tts.Communicate(
             text=text,
-            voice=settings.voice
+            voice=settings.voice,
         )
 
         audio = bytearray()

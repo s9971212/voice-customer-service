@@ -48,8 +48,8 @@ class ChatGPTClient:
         self.conversation_messages.append(
             {
                 "role": "user",
-                "content": message
-            }
+                "content": message,
+            },
         )
 
         messages = self.system_messages + self.conversation_messages
@@ -83,8 +83,8 @@ class ChatGPTClient:
         self.conversation_messages.append(
             {
                 "role": "assistant",
-                "content": message
-            }
+                "content": message,
+            },
         )
 
     def _trim_messages(self):

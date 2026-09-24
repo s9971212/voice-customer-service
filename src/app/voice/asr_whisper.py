@@ -28,7 +28,7 @@ class WhisperASR:
         orig_audio, orig_sr = librosa.load(
             audio_file,
             sr=None,
-            mono=False
+            mono=False,
         )
 
         processed_audio = self._preprocess(orig_audio, orig_sr)
@@ -37,7 +37,7 @@ class WhisperASR:
             audio=processed_audio,
             language=settings.language,
             beam_size=settings.beam_size,
-            vad_filter=settings.vad_filter
+            vad_filter=settings.vad_filter,
         )
 
         text = "".join(
@@ -68,7 +68,7 @@ class WhisperASR:
             audio = librosa.resample(
                 audio,
                 orig_sr=orig_sr,
-                target_sr=settings.target_sr
+                target_sr=settings.target_sr,
             )
 
         return audio.astype(np.float32)
