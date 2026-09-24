@@ -81,7 +81,7 @@ class Settings(BaseSettings):
 
     openai_api_key: str = ""
 
-    max_messages: int = 30
+    max_conversation_messages: int = 30
 
     # =========================
     # Edge TTS

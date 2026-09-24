@@ -1,5 +1,4 @@
 import logging
-from typing import Any
 
 from openai import OpenAI
 
@@ -22,7 +21,7 @@ class ChatGPTClient:
             api_key=settings.openai_api_key
         )
 
-        self.history: Any = [
+        self.system_messages = [
             {
                 "role": "system",
                 "content": PROMPT
@@ -34,27 +33,30 @@ class ChatGPTClient:
 
                 {CONTEXT}
                 """
-            }
+            },
         ]
 
-    def ask(self, text):
+        self.conversation_messages = []
+
+    def ask(self, message):
         """
         問題或指令
         """
 
-        if len(self.history) > settings.max_messages:
-            self.history = self.history[:2] + self.history[-settings.max_messages:]
+        self._trim_messages()
 
-        self.history.append(
+        self.conversation_messages.append(
             {
                 "role": "user",
-                "content": text
+                "content": message
             }
         )
 
+        messages = self.system_messages + self.conversation_messages
+
         with self.client.responses.stream(
                 model="gpt-5",
-                input=self.history,
+                input=messages,
         ) as stream:
             full_text = ""
 
@@ -64,26 +66,31 @@ class ChatGPTClient:
 
             final_response = stream.get_final_response()
 
+        self._add_assistant(full_text)
+
         logger.info(
             "OpenAI token 使用量: %s",
             final_response.usage,
         )
 
-        self.add_assistant(full_text)
-
         return full_text
 
-    def add_assistant(self, text):
+    def _add_assistant(self, message):
         """
         添加 AI 過去生成過的回應
         """
 
-        if len(self.history) > settings.max_messages:
-            self.history = self.history[:2]
-
-        self.history.append(
+        self.conversation_messages.append(
             {
                 "role": "assistant",
-                "content": text
+                "content": message
             }
         )
+
+    def _trim_messages(self):
+        """
+        保留最近 N 個回應
+        """
+
+        if len(self.conversation_messages) > settings.max_conversation_messages:
+            self.conversation_messages = self.conversation_messages[-settings.max_conversation_messages:]
