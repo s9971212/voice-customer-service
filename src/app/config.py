@@ -30,6 +30,8 @@ class Settings(BaseSettings):
 
     version: str = "0.1.0"
 
+    api_str: str = "/api"
+
     # =========================
     # CORS
     # =========================
@@ -88,12 +90,6 @@ class Settings(BaseSettings):
     # =========================
 
     voice: str = "zh-TW-HsiaoChenNeural"
-
-    # =========================
-    # Api
-    # =========================
-
-    api_v1_str: str = "/api"
 
     # =========================
     # Model

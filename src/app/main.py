@@ -53,7 +53,7 @@ if settings.backend_cors_origins:
 # Routers
 # =========================
 
-app.include_router(router, prefix=settings.api_v1_str)
+app.include_router(router, prefix=settings.api_str)
 
 
 # =========================
